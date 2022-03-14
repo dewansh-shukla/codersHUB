@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* background-image: linear-gradient(
+    to right,
+    #97defd,
+    #a1e6fd,
+    #adeefd,
+    #bbf6fe,
+    #c9fdff
+  ); */
+  background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+  font-family: 'Source Sans Pro', sans-serif !important;
+}
