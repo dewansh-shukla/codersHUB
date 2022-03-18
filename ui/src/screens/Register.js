@@ -52,25 +52,18 @@ function Login() {
       password: form[2].value,
     }
     console.log(user)
-    fetch('/register', {
+    fetch('/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
+    }).then(async (res) => {
+      res.json()
+      navigate('/login')
     })
-      .then((res) => res.json())
-      .then((data) => localStorage.setItem('token', data.token))
   }
-  useEffect(() => {
-    fetch('/isUserAuth', {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => (data.isLoggedIn ? navigate('/login') : null))
-  }, [])
+
   return (
     <Grid
       container

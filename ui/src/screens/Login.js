@@ -50,7 +50,7 @@ function Login() {
       username: form[0].value,
       password: form[1].value,
     }
-    console.log(user)
+
     fetch('/login', {
       method: 'POST',
       headers: {
@@ -59,17 +59,20 @@ function Login() {
       body: JSON.stringify(user),
     })
       .then((res) => res.json())
-      .then((data) => localStorage.setItem('token', data.token))
+      .then((data) => {
+        console.log(data)
+        localStorage.setItem('token', data.token)
+      })
   }
-  useEffect(() => {
-    fetch('/isUserAuth', {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => (data.isLoggedIn ? navigate('/home') : null))
-  }, [])
+  // useEffect(() => {
+  //   fetch('/isUserAuth', {
+  //     headers: {
+  //       'x-access-token': localStorage.getItem('token'),
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => (data.isLoggedIn ? navigate('/home') : null))
+  // }, [])
   return (
     <Grid
       container
