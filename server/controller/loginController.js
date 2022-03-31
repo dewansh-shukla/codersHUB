@@ -1,3 +1,6 @@
+const User = require('../models/users')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const loginUser = (req, res) => {
   const userLogginIn = req.body
   User.findOne({ username: userLogginIn.username }).then((dbUser) => {
@@ -14,14 +17,13 @@ const loginUser = (req, res) => {
         }
         jwt.sign(
           payload,
-          process.env.JWT_SECRET,
+          'process.env.JWT_KEY',
           { expiresIn: 86400 },
           (err, token) => {
             if (err) return res.json({ message: err })
-            console.log(token)
             return res.json({
               message: 'Success',
-              token: 'Bearer' + token,
+              token: 'Bearer ' + token,
             })
           }
         )
