@@ -15,18 +15,14 @@ const loginUser = (req, res) => {
           id: dbUser._id,
           username: dbUser.username,
         }
-        jwt.sign(
-          payload,
-          'process.env.JWT_KEY',
-          { expiresIn: 86400 },
-          (err, token) => {
-            if (err) return res.json({ message: err })
-            return res.json({
-              message: 'Success',
-              token: 'Bearer ' + token,
-            })
-          }
-        )
+        jwt.sign(payload, 'abc123', { expiresIn: 86400 }, (err, token) => {
+          if (err) return res.json({ message: err })
+
+          return res.json({
+            message: 'Success',
+            token: 'Bearer ' + token,
+          })
+        })
       } else {
         return res.json({ message: 'Invalid Username or Password' })
       }

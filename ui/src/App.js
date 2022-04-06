@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
+import Home from './screens/Home'
 
 const theme = createTheme({
   typography: {
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route exact path='/' element={<Register />} />
             <Route exact path='/login' element={<Login />} />
+            <Route exact path='/home' element={<Home />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Container,
   Grid,
-  Switch,
   TextField,
   Typography,
   Button,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Coding from '../assets/images/coding.svg'
 import { motion } from 'framer-motion'
-
 const useStyles = makeStyles(() => ({
   imgContainer: {
     backgroundImage: `url(${Coding})`,
@@ -43,8 +43,12 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+// Login component
+
 function Login() {
   const classes = useStyles()
+  const [userExist, setUserExist] = useState(false)
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const handlelogin = (e) => {
     e.preventDefault()
@@ -54,7 +58,6 @@ function Login() {
       email: form[1].value,
       password: form[2].value,
     }
-    console.log(user)
     fetch('/', {
       method: 'POST',
       headers: {
@@ -62,8 +65,11 @@ function Login() {
       },
       body: JSON.stringify(user),
     }).then(async (res) => {
-      res.json()
-      navigate('/login')
+      let data = await res.json()
+      if (data.message === 'Username or email taken') {
+        setUserExist(true)
+        setOpen(true)
+      } else navigate('/login')
     })
   }
 
@@ -132,6 +138,7 @@ function Login() {
             id='filled-basic'
             label='Email or Phone number'
             variant='standard'
+            type='email'
             autoComplete='off'
             sx={{ width: '100%', marginTop: '20px' }}
             required
@@ -153,20 +160,15 @@ function Login() {
               padding: '0 !important',
               marginTop: '20px',
             }}
+          ></Container>
+          <Snackbar
+            open={open}
+            autoHideDuration={3000}
+            onClose={() => setOpen(false)}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Switch />
-              <Typography>Remember</Typography>
-            </div>
-            <a href='#' style={{ textDecoration: 'none' }}>
-              Forgot password
-            </a>
-          </Container>
+            <Alert severity='warning'>Username or email already exist</Alert>
+          </Snackbar>
           <Button
             variant='contained'
             type='submit'
@@ -180,6 +182,27 @@ function Login() {
           >
             Register User
           </Button>
+          {userExist ? (
+            <>
+              <motion.button
+                whileHover={{
+                  scale: 0.9,
+                  transition: { duration: 0.8 },
+                }}
+                style={{
+                  width: '100%',
+                  marginTop: '10px',
+                  padding: '10px',
+                  borderRadius: '20px',
+                }}
+                onClick={() => navigate('/login')}
+              >
+                Sign in
+              </motion.button>
+            </>
+          ) : (
+            <></>
+          )}
         </form>
       </Grid>
     </Grid>

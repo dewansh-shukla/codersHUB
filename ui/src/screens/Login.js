@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Container,
@@ -7,6 +7,8 @@ import {
   TextField,
   Typography,
   Button,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Coding from '../assets/images/coding.svg'
@@ -41,6 +43,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 function Login() {
+  const [invalidUser, setInvalidUser] = useState(false)
   const classes = useStyles()
   const navigate = useNavigate()
   const handlelogin = (e) => {
@@ -60,19 +63,12 @@ function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         localStorage.setItem('token', data.token)
+        if (data.message === 'Success') {
+          navigate('/home')
+        } else setInvalidUser(true)
       })
   }
-  // useEffect(() => {
-  //   fetch('/isUserAuth', {
-  //     headers: {
-  //       'x-access-token': localStorage.getItem('token'),
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => (data.isLoggedIn ? navigate('/home') : null))
-  // }, [])
   return (
     <Grid
       container
@@ -128,7 +124,7 @@ function Login() {
           </Typography>
           <TextField
             id='filled-basic'
-            label='Email or Phone number'
+            label='User_Name'
             variant='filled'
             sx={{ marginTop: '40px', width: '100%' }}
             required
@@ -172,6 +168,14 @@ function Login() {
           >
             Sign in
           </Button>
+          <Snackbar
+            open={invalidUser}
+            autoHideDuration={3000}
+            onClose={() => setInvalidUser(false)}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          >
+            <Alert severity='error'>Enter valid Login Credentials </Alert>
+          </Snackbar>
         </form>
       </Grid>
     </Grid>

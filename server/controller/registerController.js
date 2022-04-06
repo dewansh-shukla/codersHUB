@@ -7,8 +7,8 @@ const register = async (req, res) => {
     const user = req.body
     const takeUsername = await User.findOne({ username: user.username })
     const takeEmail = await User.findOne({ email: user.email })
-    if (takeUsername || takeEmail) {
-      res.json({ message: 'Username or email has already been taken' })
+    if (takeUsername && takeEmail) {
+      res.json({ message: 'Username or email taken' })
     } else {
       user.password = await bcrypt.hash(req.body.password, 10)
       const dbUser = new User({
@@ -17,7 +17,7 @@ const register = async (req, res) => {
         password: user.password,
       })
       dbUser.save()
-      res.end('added user')
+      res.json({ message: 'added user' })
     }
   }
 }
