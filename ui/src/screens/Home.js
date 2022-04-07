@@ -37,8 +37,8 @@ function Home() {
           <Grid item xl={0.5} lg={0.5} />
           <Grid
             item
-            xl={3}
-            lg={3}
+            xl={2.5}
+            lg={2.5}
             md={12}
             sm={12}
             xs={12}
@@ -49,8 +49,8 @@ function Home() {
           <Grid item xl={0.5} lg={0.5} />
           <Grid
             item
-            xl={4}
-            lg={4}
+            xl={5}
+            lg={5}
             md={12}
             sm={12}
             xs={12}
@@ -58,7 +58,7 @@ function Home() {
           >
             <CodeEditor />
           </Grid>
-          <Grid item xl={0.5} lg={0.5} />
+          <Grid item xl={0.25} lg={0.25} />
           <Grid
             item
             xl={3}
@@ -70,7 +70,7 @@ function Home() {
           >
             <UserProfile data={data} />
           </Grid>
-          <Grid item xl={0.5} lg={0.5} />
+          <Grid item xl={0.25} lg={0.25} />
         </Grid>
       </Container>
     </>

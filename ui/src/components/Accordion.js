@@ -34,7 +34,12 @@ function Accordion() {
             >
               Arrays
             </Typography>
-            <AiOutlineDown style={{ color: 'black' }} />
+            <AiOutlineDown
+              style={{
+                color: 'white !important',
+                fontWeight: 900,
+              }}
+            />
           </Button>
         </Box>
       </motion.header>
