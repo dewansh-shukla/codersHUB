@@ -12,8 +12,10 @@ const verifyJWT = async (req, res, next) => {
       req.user = {
         username: decoded.username,
         id: decoded.id,
+        isLoggedIn: true,
         message: 'Authenticated',
       }
+
       next()
     })
   } else {

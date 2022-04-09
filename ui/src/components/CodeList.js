@@ -1,8 +1,10 @@
 import { Button, Container, Typography } from '@mui/material'
-import React from 'react'
+import { useState } from 'react'
 import Accordion from './Accordion'
+import AddCodeModal from './AddCodeModal'
 import './style.css'
 function CodeList() {
+  const [open, setOpen] = useState(false)
   return (
     <>
       <Container
@@ -33,7 +35,13 @@ function CodeList() {
           }}
         >
           Code_List
-          <button style={{ margin: '5px', borderRadius: '50%' }}>+</button>
+          <button
+            style={{ margin: '5px', borderRadius: '50%' }}
+            onClick={() => setOpen(true)}
+          >
+            +
+          </button>
+          <AddCodeModal open={open} setOpen={setOpen} />
         </Typography>
         <Accordion />
         <Accordion />

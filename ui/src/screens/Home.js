@@ -12,13 +12,16 @@ function Home() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     const getData = async () => {
-      const response = await axios.get('http://localhost:4000/home', {
-        headers: { Authorization: token },
-      })
-      setData(response.data)
+      try {
+        const response = await axios.get('http://localhost:4000/home', {
+          headers: { Authorization: token },
+        })
+        setData(response.data)
+      } catch (error) {
+        if (!error.response.data.isLoggedIn) navigate('/login')
+      }
     }
     getData()
-
     console.log(data)
   }, [])
 

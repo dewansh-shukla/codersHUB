@@ -15,7 +15,7 @@ const loginUser = (req, res) => {
           id: dbUser._id,
           username: dbUser.username,
         }
-        jwt.sign(payload, 'abc123', { expiresIn: 86400 }, (err, token) => {
+        jwt.sign(payload, 'abc123', { expiresIn: 3600 }, (err, token) => {
           if (err) return res.json({ message: err })
 
           return res.json({

@@ -47,7 +47,6 @@ const useStyles = makeStyles(() => ({
 
 function Login() {
   const classes = useStyles()
-  const [userExist, setUserExist] = useState(false)
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const handlelogin = (e) => {
@@ -67,7 +66,6 @@ function Login() {
     }).then(async (res) => {
       let data = await res.json()
       if (data.message === 'Username or email taken') {
-        setUserExist(true)
         setOpen(true)
       } else navigate('/login')
     })
@@ -182,27 +180,22 @@ function Login() {
           >
             Register User
           </Button>
-          {userExist ? (
-            <>
-              <motion.button
-                whileHover={{
-                  scale: 0.9,
-                  transition: { duration: 0.8 },
-                }}
-                style={{
-                  width: '100%',
-                  marginTop: '10px',
-                  padding: '10px',
-                  borderRadius: '20px',
-                }}
-                onClick={() => navigate('/login')}
-              >
-                Sign in
-              </motion.button>
-            </>
-          ) : (
-            <></>
-          )}
+
+          <motion.button
+            whileHover={{
+              scale: 0.9,
+              transition: { duration: 0.8 },
+            }}
+            style={{
+              width: '100%',
+              marginTop: '10px',
+              padding: '10px',
+              borderRadius: '20px',
+            }}
+            onClick={() => navigate('/login')}
+          >
+            Sign in
+          </motion.button>
         </form>
       </Grid>
     </Grid>

@@ -3,7 +3,8 @@ const Axios = require('axios')
 const home = async (req, res) => {
   var userData = req.user
   user = await User.findById(userData.id).select('-password')
-  res.json(user)
+  if (user) res.json(user)
+  else res.json({ isLoggedIn: false, message: 'user is not logged In' })
 }
 
 const compiler = async (req, res) => {
