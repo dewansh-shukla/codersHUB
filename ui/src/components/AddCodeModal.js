@@ -7,14 +7,22 @@ import {
   TextField,
   Button,
 } from '@mui/material'
-
+import axios from 'axios'
 import { useState } from 'react'
 
 function AddCodeModal({ open, setOpen }) {
   const [language, setLanguage] = useState('')
   const [tags, setTags] = useState('')
   const [code, setCode] = useState('')
-  console.log(language)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    var data = {
+      language: language,
+      tags: tags,
+      code: code,
+    }
+    axios('/home', { method: 'post', body: data })
+  }
   return (
     <>
       <Modal open={open} onClose={() => setOpen(false)}>
@@ -46,7 +54,7 @@ function AddCodeModal({ open, setOpen }) {
             >
               Enter Your Code
             </Typography>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
               <Box
                 sx={{
                   width: '100%',
@@ -76,8 +84,8 @@ function AddCodeModal({ open, setOpen }) {
                     </Typography>
                     <Select
                       labelId='demo-simple-select-label'
-                      value={language}
                       label='language'
+                      value={language}
                       onChange={(e) => {
                         setLanguage(e.target.value)
                       }}
@@ -91,7 +99,12 @@ function AddCodeModal({ open, setOpen }) {
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Typography>Enter Tags=></Typography>
-                    <TextField label='tags' variant='outlined' />
+                    <TextField
+                      label='tags'
+                      variant='outlined'
+                      value={tags}
+                      onInput={(e) => setTags(e.target.value)}
+                    />
                   </Box>
                 </Box>
                 <Typography sx={{ fontWeight: 900, marginTop: '15px' }}>
@@ -101,8 +114,12 @@ function AddCodeModal({ open, setOpen }) {
                   cols='80'
                   rows='8'
                   style={{ width: '80%', marginTop: '5px' }}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
                 />
                 <Button
+                  type='submit'
+                  value='submit'
                   sx={{
                     background: 'linear-gradient(45deg,#e523ff,#4548ff)',
                     color: 'white',

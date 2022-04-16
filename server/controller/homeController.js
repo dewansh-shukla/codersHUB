@@ -6,7 +6,6 @@ const home = async (req, res) => {
   if (user) res.json(user)
   else res.json({ isLoggedIn: false, message: 'user is not logged In' })
 }
-
 const compiler = async (req, res) => {
   let code = req.body.code
   let language = req.body.language
@@ -37,5 +36,8 @@ const compiler = async (req, res) => {
       console.log(error)
     })
 }
-
-module.exports = { home, compiler }
+const addData = async (req, res) => {
+  const data = req.body
+  console.log(data)
+}
+module.exports = { home, compiler, addData }
