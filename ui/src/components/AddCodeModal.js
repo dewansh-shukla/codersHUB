@@ -21,7 +21,7 @@ function AddCodeModal({ open, setOpen }) {
       tags: tags,
       code: code,
     }
-    axios('/home', { method: 'post', body: data })
+    axios({ method: 'POST', url: 'http://localhost:4000/home/add', data: data })
   }
   return (
     <>

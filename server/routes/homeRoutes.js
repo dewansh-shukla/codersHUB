@@ -4,5 +4,5 @@ const { home, compiler, addData } = require('../controller/homeController')
 const { verifyJWT } = require('../middleware/verifyJWT')
 router.get('/', verifyJWT, home)
 router.post('/', compiler)
-router.post('/', addData)
+router.post('/add', addData)
 module.exports = router

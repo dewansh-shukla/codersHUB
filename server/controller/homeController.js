@@ -1,5 +1,7 @@
 const User = require('../models/users')
+const Codes = require('../models/codes')
 const Axios = require('axios')
+
 const home = async (req, res) => {
   var userData = req.user
   user = await User.findById(userData.id).select('-password')
@@ -36,8 +38,9 @@ const compiler = async (req, res) => {
       console.log(error)
     })
 }
-const addData = async (req, res) => {
+
+const addData = (req, res) => {
   const data = req.body
-  console.log(data)
+  if (data) res.status(200)
 }
 module.exports = { home, compiler, addData }
