@@ -5,8 +5,10 @@ const Axios = require('axios')
 const home = async (req, res) => {
   var userData = req.user
   user = await User.findById(userData.id).select('-password')
-  if (user) res.json(user)
-  else res.json({ isLoggedIn: false, message: 'user is not logged In' })
+  if (user) {
+    console.log(user)
+    res.json(user)
+  } else res.json({ isLoggedIn: false, message: 'user is not logged In' })
 }
 const compiler = async (req, res) => {
   let code = req.body.code
@@ -41,6 +43,18 @@ const compiler = async (req, res) => {
 
 const addData = (req, res) => {
   const data = req.body
-  if (data) res.status(200)
+  console.log(data)
+  const code = new Codes({
+    user_id: data.id,
+    tag: data.tags.toLowerCase(),
+    codes: {
+      language: data.language,
+      body: data.code,
+      tag: data.tags.toLowerCase(),
+    },
+  })
+  code.save()
+
+  res.status(200).json({ message: 'Data received', info: data })
 }
 module.exports = { home, compiler, addData }

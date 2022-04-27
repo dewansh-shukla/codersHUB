@@ -5,7 +5,7 @@ import { AiOutlineDown } from 'react-icons/ai'
 function Accordion() {
   const [expanded, setExpanded] = useState(false)
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100% ' }}>
       <motion.header
         initial={false}
         animate={{ backgroundColor: expanded ? 'transparent' : 'transparent' }}

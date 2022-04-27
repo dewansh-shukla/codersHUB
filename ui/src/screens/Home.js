@@ -22,13 +22,12 @@ function Home() {
       }
     }
     getData()
-    console.log(data)
   }, [])
 
   const classes = useStyles()
   return (
     <>
-      <Container maxWidth className={classes.wrapper}>
+      <Container maxWidth='m' className={classes.wrapper}>
         <Typography
           textAlign='center'
           variant='h3'
@@ -47,7 +46,7 @@ function Home() {
             xs={12}
             sx={{ padding: '10px' }}
           >
-            <CodeList />
+            <CodeList data={data} />
           </Grid>
           <Grid item xl={0.5} lg={0.5} />
           <Grid

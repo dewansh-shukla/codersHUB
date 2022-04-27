@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Accordion from './Accordion'
 import AddCodeModal from './AddCodeModal'
 import './style.css'
-function CodeList() {
+function CodeList({ data }) {
   const [open, setOpen] = useState(false)
   return (
     <>
@@ -41,7 +41,7 @@ function CodeList() {
           >
             +
           </button>
-          <AddCodeModal open={open} setOpen={setOpen} />
+          <AddCodeModal open={open} setOpen={setOpen} data={data} />
         </Typography>
         <Accordion />
         <Accordion />

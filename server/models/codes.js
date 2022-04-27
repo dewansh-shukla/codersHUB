@@ -5,14 +5,12 @@ const codeSchema = mongoose.Schema({
     required: true,
     ref: 'User',
   },
-  codes: [
-    {
-      language: { type: String, required: true },
-      body: { type: String, required: true },
-      date: { type: Date, default: Date.now },
-      tag: { type: String, required: true },
-    },
-  ],
+  tag: { type: String, required: true },
+  codes: {
+    language: { type: String, required: true },
+    body: { type: String, required: true },
+    date: { type: Date, default: Date.now },
+  },
 })
 const Codes = mongoose.model('Codes', codeSchema)
 module.exports = Codes

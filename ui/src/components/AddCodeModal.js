@@ -9,19 +9,26 @@ import {
 } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
+import { GiCrossMark } from 'react-icons/gi'
 
-function AddCodeModal({ open, setOpen }) {
+function AddCodeModal({ open, setOpen, data }) {
   const [language, setLanguage] = useState('')
   const [tags, setTags] = useState('')
   const [code, setCode] = useState('')
+  const handleClose = () => {
+    setOpen(false)
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
-    var data = {
+    console.log(data)
+    var info = {
+      id: data._id,
       language: language,
       tags: tags,
       code: code,
     }
-    axios({ method: 'POST', url: 'http://localhost:4000/home/add', data: data })
+    console.log(info)
+    axios({ method: 'POST', url: 'http://localhost:4000/home/add', data: info })
   }
   return (
     <>
@@ -49,6 +56,32 @@ function AddCodeModal({ open, setOpen }) {
               padding: '10px',
             }}
           >
+            <Box
+              style={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                fontWeight: 900,
+                fontSize: '25px',
+                marginLeft: '-20px',
+                marginBottom: '10px',
+              }}
+            >
+              <Button
+                sx={{
+                  color: 'black',
+                  fontWeight: 'bolder',
+                  fontSize: '25px',
+                  padding: 0,
+                  margin: 0,
+                  border: 0,
+                  marginTop: '20px',
+                }}
+                onClick={handleClose}
+              >
+                <GiCrossMark />
+              </Button>
+            </Box>
             <Typography
               sx={{ fontWeight: 900, textAlign: 'center', fontSize: '25px' }}
             >
@@ -80,7 +113,7 @@ function AddCodeModal({ open, setOpen }) {
                     }}
                   >
                     <Typography sx={{ margin: '2px' }}>
-                      Select Language=>
+                      Select Language =
                     </Typography>
                     <Select
                       labelId='demo-simple-select-label'
@@ -98,7 +131,7 @@ function AddCodeModal({ open, setOpen }) {
                     </Select>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography>Enter Tags=></Typography>
+                    <Typography>Enter Tags = </Typography>
                     <TextField
                       label='tags'
                       variant='outlined'
