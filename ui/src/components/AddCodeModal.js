@@ -11,10 +11,11 @@ import axios from 'axios'
 import { useState } from 'react'
 import { GiCrossMark } from 'react-icons/gi'
 
-function AddCodeModal({ open, setOpen, data }) {
+function AddCodeModal({ open, setOpen, data, setRefresh, refresh }) {
   const [language, setLanguage] = useState('')
   const [tags, setTags] = useState('')
   const [code, setCode] = useState('')
+  const [codeName, setCodeName] = useState('')
   const handleClose = () => {
     setOpen(false)
   }
@@ -26,9 +27,12 @@ function AddCodeModal({ open, setOpen, data }) {
       language: language,
       tags: tags,
       code: code,
+      codename: codeName,
     }
-    console.log(info)
+
     axios({ method: 'POST', url: 'http://localhost:4000/home/add', data: info })
+    setRefresh(!refresh)
+    setOpen(false)
   }
   return (
     <>
@@ -139,6 +143,23 @@ function AddCodeModal({ open, setOpen, data }) {
                       onInput={(e) => setTags(e.target.value)}
                     />
                   </Box>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    justifyContent: 'center',
+                    marginTop: '30px',
+                  }}
+                >
+                  <Typography>Enter Your Code Name</Typography>
+                  <TextField
+                    label='codeName'
+                    variant='outlined'
+                    value={codeName}
+                    onInput={(e) => setCodeName(e.target.value)}
+                  />
                 </Box>
                 <Typography sx={{ fontWeight: 900, marginTop: '15px' }}>
                   Paste Your Code

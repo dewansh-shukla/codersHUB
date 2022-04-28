@@ -6,6 +6,7 @@ const codeSchema = mongoose.Schema({
     ref: 'User',
   },
   tag: { type: String, required: true },
+  codename: { type: String, required: true },
   codes: {
     language: { type: String, required: true },
     body: { type: String, required: true },

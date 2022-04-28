@@ -6,10 +6,10 @@ const home = async (req, res) => {
   var userData = req.user
   user = await User.findById(userData.id).select('-password')
   if (user) {
-    console.log(user)
     res.json(user)
   } else res.json({ isLoggedIn: false, message: 'user is not logged In' })
 }
+//Post code to api for execution
 const compiler = async (req, res) => {
   let code = req.body.code
   let language = req.body.language
@@ -41,12 +41,14 @@ const compiler = async (req, res) => {
     })
 }
 
+//Post
+// Add Codes
 const addData = (req, res) => {
   const data = req.body
-  console.log(data)
   const code = new Codes({
     user_id: data.id,
     tag: data.tags.toLowerCase(),
+    codename: data.codename,
     codes: {
       language: data.language,
       body: data.code,
@@ -57,4 +59,26 @@ const addData = (req, res) => {
 
   res.status(200).json({ message: 'Data received', info: data })
 }
-module.exports = { home, compiler, addData }
+
+//Get Codes for the user
+const getCodes = async (req, res) => {
+  const id = req.params.id
+  try {
+    console.time('Home')
+    const data = await Codes.find({ user_id: id })
+    console.timeEnd('Home')
+    const codes = []
+    data.map((value, index) => {
+      codes.push({
+        codes: value.codes,
+        tag: value.tag,
+        codename: value.codename,
+      })
+    })
+    res.json(codes)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = { home, compiler, addData, getCodes }

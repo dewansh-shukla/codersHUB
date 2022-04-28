@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react'
 import React, { useState } from 'react'
 import './style.css'
 import Axios from 'axios'
-function CodeEditor() {
+function CodeEditor({ current, setCurrent }) {
   const languages = [
     { value: 'c', label: 'C' },
     { value: 'cpp', label: 'C++' },
@@ -13,7 +13,7 @@ function CodeEditor() {
   ]
 
   const [lang, setLang] = useState('cpp')
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState(``)
   const [font, setFont] = useState(20)
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
@@ -105,7 +105,7 @@ function CodeEditor() {
               width='100%'
               language={lang}
               defaultLanguage='cpp'
-              defaultValue='# Enter your code here'
+              defaultValue={`You can Code here`} // ${current['codes']['body']}
               onChange={(value) => {
                 setCode(value)
               }}
