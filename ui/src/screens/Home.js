@@ -10,7 +10,7 @@ function Home() {
   const navigate = useNavigate()
   const [data, setData] = useState({})
   const [info, setInfo] = useState([])
-  const [current, setCurrent] = useState({})
+
   const [refresh, setRefresh] = useState(true)
 
   useEffect(() => {
@@ -56,7 +56,6 @@ function Home() {
               setInfo={setInfo}
               refresh={refresh}
               setRefresh={setRefresh}
-              setCurrent={setCurrent}
             />
           </Grid>
           <Grid item xl={0.5} lg={0.5} />
@@ -69,7 +68,7 @@ function Home() {
             xs={12}
             sx={{ padding: '10px' }}
           >
-            <CodeEditor current={current} setCurrent={setCurrent} />
+            <CodeEditor />
           </Grid>
           <Grid item xl={0.25} lg={0.25} />
           <Grid

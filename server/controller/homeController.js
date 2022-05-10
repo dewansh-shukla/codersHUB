@@ -64,15 +64,15 @@ const addData = (req, res) => {
 const getCodes = async (req, res) => {
   const id = req.params.id
   try {
-    console.time('Home')
     const data = await Codes.find({ user_id: id })
-    console.timeEnd('Home')
     const codes = []
+
     data.map((value, index) => {
       codes.push({
         codes: value.codes,
         tag: value.tag,
         codename: value.codename,
+        code_id: value._id,
       })
     })
     res.json(codes)
@@ -81,4 +81,11 @@ const getCodes = async (req, res) => {
   }
 }
 
-module.exports = { home, compiler, addData, getCodes }
+//
+const deleteCodes = async (req, res) => {
+  const id = req.params.id
+  await Codes.deleteOne({ _id: id })
+  res.end('Code deleted')
+}
+
+module.exports = { home, compiler, addData, getCodes, deleteCodes }

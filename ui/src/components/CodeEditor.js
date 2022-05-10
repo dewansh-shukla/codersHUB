@@ -4,7 +4,7 @@ import Editor from '@monaco-editor/react'
 import React, { useState } from 'react'
 import './style.css'
 import Axios from 'axios'
-function CodeEditor({ current, setCurrent }) {
+function CodeEditor({}) {
   const languages = [
     { value: 'c', label: 'C' },
     { value: 'cpp', label: 'C++' },
@@ -42,6 +42,7 @@ function CodeEditor({ current, setCurrent }) {
   function clearOutput() {
     setOutput('')
   }
+
   return (
     <>
       <Container
@@ -105,7 +106,7 @@ function CodeEditor({ current, setCurrent }) {
               width='100%'
               language={lang}
               defaultLanguage='cpp'
-              defaultValue={`You can Code here`} // ${current['codes']['body']}
+              defaultValue={'code here'}
               onChange={(value) => {
                 setCode(value)
               }}

@@ -1,9 +1,26 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Box, Button, Typography } from '@mui/material'
-import { AiOutlineDown } from 'react-icons/ai'
-function Accordion({ tag, info, setCurrent }) {
+import { Box, Button, Typography, Snackbar, Alert } from '@mui/material'
+import { AiOutlineDown, AiFillDelete } from 'react-icons/ai'
+import { FiCopy } from 'react-icons/fi'
+import axios from 'axios'
+function Accordion({ tag, info, setRefresh, refresh }) {
   const [expanded, setExpanded] = useState(false)
+  const [open, setOpen] = useState(false)
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpen(false)
+  }
+  const handleDelete = (value) => {
+    axios
+      .delete(`http://localhost:4000/home/delete/${value.code_id}`)
+      .then(() => {
+        console.log('deleted')
+        setRefresh(!refresh)
+      })
+  }
 
   return (
     <Box sx={{ width: '100% ' }}>
@@ -22,22 +39,24 @@ function Accordion({ tag, info, setCurrent }) {
               background: 'linear-gradient(45deg,#e523ff,#4548ff)',
               marginBottom: '8px',
               marginTop: '8px',
+              display: 'flex',
+              justifyContent: 'space-evenly',
             }}
           >
             <Typography
               sx={{
                 color: 'white',
-                width: '100%',
                 textAlign: 'center',
-                fontWeight: 900,
-                letterSpacing: '2px',
+                fontWeight: 600,
+                letterSpacing: '1px',
+                fontFamily: `Poppins, sans-serif`,
               }}
             >
               {tag}
             </Typography>
             <AiOutlineDown
               style={{
-                color: 'white !important',
+                color: 'black',
                 fontWeight: 900,
               }}
             />
@@ -66,18 +85,60 @@ function Accordion({ tag, info, setCurrent }) {
             {info.map((value, index) => {
               return value['tag'] === tag ? (
                 <>
-                  <Button
+                  <Box
                     key={index}
                     sx={{
-                      fontWeight: 700,
-                      letterSpacing: '2px',
-                      color: '#6A5495',
-                      fontSize: '20px',
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
-                    onClick={() => setCurrent({ ...value })}
                   >
-                    {value['codename']}
-                  </Button>
+                    <Box
+                      key={index}
+                      sx={{
+                        fontWeight: 700,
+                        letterSpacing: '2px',
+                        color: '#6A5495',
+                        fontSize: '20px',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Button
+                        sx={{ marginLeft: '10px' }}
+                        onClick={() => {
+                          navigator.clipboard.writeText(value['codes']['body'])
+                          setOpen(true)
+                        }}
+                      >
+                        <FiCopy style={{ fontSize: '20px' }} />
+                      </Button>
+                      {value['codename']}
+                      <Button>
+                        <AiFillDelete onClick={() => handleDelete(value)} />
+                      </Button>
+                    </Box>
+
+                    <Snackbar
+                      open={open}
+                      autoHideDuration={2000}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                      }}
+                    >
+                      <Alert
+                        onClose={handleClose}
+                        severity='success'
+                        sx={{ width: '100%' }}
+                      >
+                        Code Copied..... Paste In Compiler
+                      </Alert>
+                    </Snackbar>
+                  </Box>
                 </>
               ) : (
                 <></>

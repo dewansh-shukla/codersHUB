@@ -23,16 +23,10 @@ function CodeList({ data, info, setInfo, refresh, setRefresh, setCurrent }) {
       arr.push(value['tag'])
     })
 
-    let SettingData = new Promise((resolve, reject) => {
-      if (data.length > 0) {
-        resolve(data)
-      } else reject(' error in setInfo ')
-    })
-
-    SettingData.then((data) => {
+    setTimeout(() => {
       setInfo(data)
       setTags(new Set(arr))
-    })
+    }, 2000)
   }
 
   return (
@@ -104,6 +98,8 @@ function CodeList({ data, info, setInfo, refresh, setRefresh, setCurrent }) {
               tag={value}
               info={info}
               setCurrent={setCurrent}
+              setRefresh={setRefresh}
+              refresh={refresh}
             />
           )
         })}

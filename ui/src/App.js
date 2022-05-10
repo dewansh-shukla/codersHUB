@@ -4,7 +4,7 @@ import Login from './screens/Login'
 import Register from './screens/Register'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import Home from './screens/Home'
-
+import LandingPage from './screens/LandingPage'
 const theme = createTheme({
   typography: {
     allVariants: {
@@ -24,6 +24,7 @@ function App() {
             <Route exact path='/' element={<Register />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/home' element={<Home />} />
+            {/* <Route exact path='/landing' element={<LandingPage />} /> */}
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
