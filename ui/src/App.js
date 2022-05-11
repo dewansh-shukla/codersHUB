@@ -21,10 +21,10 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
+            <Route exact path='/landing' element={<LandingPage />} />
             <Route exact path='/' element={<Register />} />
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/home' element={<Home />} />
-            {/* <Route exact path='/landing' element={<LandingPage />} /> */}
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
