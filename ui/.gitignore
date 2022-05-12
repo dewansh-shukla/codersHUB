@@ -10,7 +10,7 @@ node_modules/
 *.orig
 .idea/
 .vscode/
-build
+build/
 env
 # Runtime data
 pids
