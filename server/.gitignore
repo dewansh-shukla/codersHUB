@@ -4,6 +4,13 @@
 /tmp
 /out-tsc
 
+.DS_Store
+node_modules/
+.env
+*.orig
+.idea/
+.vscode/
+
 # Runtime data
 pids
 *.pid
