@@ -1,8 +1,9 @@
 import { Grid } from '@mui/material'
-import { yellow } from '@mui/material/colors'
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import LandingLogo from '../assets/images/landingphoto.jpg'
+
 function LandingPage() {
   const navigate = useNavigate()
   return (
@@ -41,19 +42,25 @@ function LandingPage() {
               <div>
                 <p
                   style={{
-                    fontSize: '60px',
+                    fontSize: '4em',
                     padding: 0,
                     margin: 0,
-                    marginTop: '100px',
+                    marginTop: '15%',
                     textAlign: 'center',
                     color: 'white',
                     fontWeight: 'bold',
-                    fontFamily: 'Poppins,sanserif',
+                    fontFamily: 'Poppins',
                   }}
                 >
                   The Ultimatum Coding Platform
                 </p>
-                <p style={{ textAlign: 'center' }}>
+                <p
+                  style={{
+                    textAlign: 'center',
+                    fontFamily: 'Poppins,sanserif',
+                    fontSize: '1em',
+                  }}
+                >
                   Be the ultimate coders .Save and run your code here for free
                 </p>
                 <div
@@ -68,7 +75,7 @@ function LandingPage() {
                       width: '80%',
                       display: 'flex',
                       justifyContent: 'space-evenly',
-                      marginTop: '3%',
+                      marginTop: '10%',
                     }}
                   >
                     <Btn2 color='yellow' onClick={() => navigate('/')}>
@@ -81,8 +88,19 @@ function LandingPage() {
                 </div>
               </div>
             </Grid>
-            <Grid item xl={4} sx={{ background: 'lightgray' }}>
-              xyz
+            <Grid
+              item
+              xl={4}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <img
+                src={LandingLogo}
+                alt='logo here'
+                style={{ width: '100%' }}
+              />
             </Grid>
           </Grid>
         </div>
@@ -131,14 +149,22 @@ const NavLink = styled.a`
 `
 const Btn = styled.button`
   color: yellow;
+  width: 40%;
   background: transparent;
   padding: 10px 10px 10px 10px;
   border: 1px solid yellow;
   border-radius: 30px;
+  font-weight: 900;
+  &:hover {
+    cursor: pointer;
+
+    border: 1px solid white;
+  }
 `
 
 const Logo = styled.h1`
   letter-spacing: 4px;
+  font-size: 30px;
 `
 const Btn2 = styled.button`
   background: ${(props) => props.color || 'yellow'};

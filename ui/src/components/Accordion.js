@@ -18,6 +18,7 @@ function Accordion({ tag, info, setRefresh, refresh }) {
       .delete(`http://localhost:4000/home/delete/${value.code_id}`)
       .then(() => {
         console.log('deleted')
+        setRefresh(!refresh)
       })
   }
 

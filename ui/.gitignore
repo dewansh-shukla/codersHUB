@@ -4,6 +4,8 @@
 /tmp
 /out-tsc
 
+
+env
 # Runtime data
 pids
 *.pid
